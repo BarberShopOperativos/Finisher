@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1445729448 source:/home/christian/Documents/Finisher/main.c
+	<stdlib.h>
+	<sys/types.h>
+	<sys/ipc.h>
+	<sys/shm.h>
+	<stdio.h>
+
