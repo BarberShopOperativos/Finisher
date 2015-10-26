@@ -6,3 +6,24 @@
 	<sys/shm.h>
 	<stdio.h>
 
+1445843821 source:/mnt/hgfs/Shared Files/Finisher/main.c
+	<stdlib.h>
+	<sys/types.h>
+	<sys/ipc.h>
+	<sys/shm.h>
+	<stdio.h>
+	<semaphore.h>
+	<sys/stat.h>
+	<fcntl.h>
+	"SemaphoreStruct.h"
+
+1445842750 /mnt/hgfs/Shared Files/Finisher/SemaphoreStruct.h
+	<sys/types.h>
+	<sys/ipc.h>
+	<sys/shm.h>
+	<stdio.h>
+	<semaphore.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+
