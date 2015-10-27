@@ -29,13 +29,13 @@ void stopPrograms(){
     idClients = locateSegment(stopClientsKey, INT_SEG_SIZE);
     idSpecialClients = locateSegment(stopSpecialClientsKey, INT_SEG_SIZE);
 
-    int stopClientsPtr = attachIntSegment(idClients);
-    int stopSpecialClientsPtr = attachIntSegment(idSpecialClients);
-
-    stopClientsPtr = 0;
+    int *stopClientsPtr = attachIntSegment(idClients);
+    int *stopSpecialClientsPtr = attachIntSegment(idSpecialClients);
+    *stopClientsPtr = 0;
     printf("Programa de clientes detenido\n");
-    stopSpecialClientsPtr = 0;
+    *stopSpecialClientsPtr = 0;
     printf("Programa de clientes especiales detenido\n");
+
 }
 void destroySemaphores(){
     char CHAIRS_SEM[] = "ChairsSem";
@@ -56,14 +56,15 @@ void destroySemaphore (char *pName){
     Semaphore *semaphore = malloc(sizeof(Semaphore));
     semaphore->name = pName;
 
-    semaphore->mutex = sem_open(pName,O_CREAT,0644,1);
+    semaphore->mutex = sem_open(pName,0,0644,1);
     if(semaphore->mutex == SEM_FAILED){
-        printf("Error inicializando semaforo: %s \n", pName);
+        printf("Error destruyendo semaforo: %s \n", pName);
         sem_unlink(pName);
         exit(-1);
     }
-    sem_destroy(semaphore->mutex);
-    printf("Semaforo %s eliminado... \n", pName);
+    if (sem_destroy(semaphore->mutex)==0){
+        printf("Semaforo %s eliminado... \n", pName);
+    }
 }
 void destroySegments(){
     key_t chairsKey, barbersKey, cashierKey, specialClientsCounterKey, stopClientsKey, stopSpecialClientsKey,chairsQuantityKey,barbersQuantityKey;
@@ -123,7 +124,7 @@ int *attachIntSegment(int pShmID){
     int *pointer;
     if ((pointer = shmat(pShmID, NULL, 0)) == (int *) -1) {
         printf("Error adjuntando segmento con llave: %d \n",pShmID);
-        exit(1);
+        //exit(1);
     }
     //printf("Segment attached ... \n");
     return pointer;
